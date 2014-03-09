@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   has_many :ratings
 
   has_many :rated, :through => :ratings, :source => :rated
+
+  def num_rated
+    Rating.where(:user_id => self.id).count
+  end
 end

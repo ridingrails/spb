@@ -3,6 +3,8 @@ class Rating < ActiveRecord::Base
 
   validates_presence_of :user_id, :restaurant_id, :stars, :comment
 
+  validates_uniqueness_of :restaurant_id, :scope => :user_id
+
   validates :stars, :inclusion => 1..5
 
   belongs_to(

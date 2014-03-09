@@ -1,13 +1,20 @@
 class RatingsController < ApplicationController
   def new
-    @rating = Rating.new
+    @restaurant = Restaurant.find(params[:id])
+    @user = current_user
   end
 
   def create
-    @rating = Rating.new(params[:rating])
+    params[:rating][:user_id] = current_user.id
+    params[:rating][:restaurant_id] = params[:restaurant_id]
+    @rating = User.new(params[:rating])
+    if @rating.save!
+      redirect_to restaurant_path(@rating.rated)
+    else
+      flash[:errors] = @rating.errors.full_messages
+      render :new
+    end
   end
-
-  def show
 
   def edit
     @rating = Rating.find(params[:id])

@@ -8,5 +8,6 @@ class CreateRatings < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :ratings, [:user_id, :restaurant_id], :unique => true
   end
 end
