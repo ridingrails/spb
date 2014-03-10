@@ -9,10 +9,10 @@ class Restaurant < ActiveRecord::Base
 
   def avg
     self_ratings = Rating.where(:restaurant_id => self.id)
-    self_ratings.average(:stars)
+    self_ratings.average(:stars) || 3.to_f
   end
 
   def review_count
-    Rating.where(:restaurant_id => self.id).count
+    Rating.where(:restaurant_id => self.id).count || 0
   end
 end

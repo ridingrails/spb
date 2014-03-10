@@ -1,5 +1,7 @@
 <h3>Users</h3>
 
+<h4><%= link_to "Restaurants", restaurants_path %></h4>
+
 <% @users.each do |user| %>
 	<h4>Name: <%= user.name %></h4>
 	<h4>Email: <%= user.email %></h4>

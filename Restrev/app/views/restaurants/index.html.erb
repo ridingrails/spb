@@ -1,8 +1,23 @@
 <h3>Restaurants</h3>
 
+<h4><%= link_to "Users", users_path %></h4>
+
+<form action="/restaurants" method="get">
+	<h5>Sort by: <select id="order" name="order">
+		<option value="" default>Choose sort parameter</option>
+		<option value="name DESC">Name Z-A</option>
+		<option value="name ASC">Name A-Z</option>
+		<option value="count DESC">Most reviews</option>
+		<option value="count ASC">Least reviews</option>
+		<option value="stars DESC">Most stars</option>
+		<option value="stars ASC">Least stars</option>
+	</select></h5>
+</form>
+
 <% @restaurants.each do |restaurant| %>
 	<h4><%= restaurant.name %></h4>
 	<h4>Number of ratings: <%= restaurant.review_count %></h4>
+	<h4>Average rating: <%= restaurant.avg %></h4>
 	<h4><%= link_to "More on this restaurant", restaurant_path(restaurant) %></h4>
 	<hr>
 <% end %>

@@ -1,7 +1,23 @@
 class RestaurantsController < ApplicationController
 
   def index
-    @restaurants = Restaurant.all
+    if params[:order]
+      if ((params[:order] == "name DESC") || (params[:order] == "name ASC"))
+        @restaurants = Restaurant.order(params[:order])
+      elsif params[:order] == ("count DESC")
+        @restaurants = Restaurant.all.sort { |a,b| b.review_count <=> a.review_count }
+      elsif params[:order] == ("count ASC")
+        @restaurants = Restaurant.all.sort { |a,b| a.review_count <=> b.review_count }
+      elsif params[:order] == ("stars DESC")
+        @restaurants = Restaurant.all.sort { |a,b| b.avg <=> a.avg }
+      elsif params[:order] == ("stars ASC")
+        @restaurants = Restaurant.all.sort { |a,b| a.avg <=> b.avg }
+      end
+    else
+      params[:order] = "name DESC"
+      @restaurants = Restaurant.order(params[:order])
+    end
+    render :index
   end
 
   def new
