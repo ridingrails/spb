@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  attr_accessible :name, :type
+  attr_accessible :name, :genre
 
   validates_presence_of :name
 
@@ -12,7 +12,7 @@ class Restaurant < ActiveRecord::Base
     self_ratings.average(:stars)
   end
 
-  def rated_by_current
-    Rating.where(:user_id => current_user.id, :restaurant_id => self.id).exists?
+  def review_count
+    Rating.where(:restaurant_id => self.id).count
   end
 end

@@ -1,7 +1,11 @@
 Restrev::Application.routes.draw do
   resources :users
-  resources :restaurants
-  resources :ratings
+  resources :restaurants do
+    resources :ratings, :only => [:create, :update]
+  end
+  resources :ratings, :except => [:create, :update]
+
+  root :to => 'restaurants#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,43 @@
+<h3><%= @restaurant.name %><h3>
+
+<%= link_to "Index", restaurants_path %>
+
+<% unless @prev_rating %>
+
+	<form id="rest" action="/restaurants/<%= @restaurant.id %>/ratings" method="post">
+		<h5>Rate restaurant: <select name="rating[stars]">
+			<% 1.upto(5) do |i| %>
+				<option value="<%= i %>"><%= i %></option>
+			<% end %>
+		</select></h5>
+
+		<textarea name="rating[details]" form="rest" placeholder="Enter comment here..."></textarea><br>
+		<input type="submit" value="Rate It">
+	</form>
+<% else %>
+	<form id="rest" action="/restaurants/<%= @restaurant.id %>/ratings/<%= @prev_rating.id %>" method="post">
+		<input type="hidden" name="_method" value="PUT">
+		<h5>Edit restaurant: <select name="rating[stars]">
+			<% 1.upto(5) do |i| %>
+				<option value="<%= i %>"
+					  <% if @prev_rating.stars == i %>
+					    <%= 'selected' %>
+						<% end %>
+						>
+					<%= i %>
+				</option>
+			<% end %>
+		</select></h5>
+
+		<textarea name="rating[details]" form="rest"><%= @prev_rating.details %></textarea><br>
+		<input type="submit" value="Update">
+	</form>
+
+<% end %>
+
+<% @restaurant.ratings.each do |rating| %>
+	<h4>Stars: <%= rating.stars %></h4>
+	<h4>Comment: <%= rating.details %></h4>
+	<h4>Rated by: <%= rating.rater.name %></h4>
+	<br>
+<% end %>

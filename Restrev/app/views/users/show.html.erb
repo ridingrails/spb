@@ -1,0 +1,12 @@
+<h3><%= @user.name %><h3>
+
+<%= link_to "Index", users_path %>
+
+<% @user.ratings.each do |rating| %>
+	<h4>Restaurant name: <%= rating.rated.name %></h4>
+	<h4>Stars: <%= rating.stars %></h4>
+	<h4>Comment: <%= rating.details %></h4>
+ 	<h4><%= link_to "More on this restaurant", restaurant_path(rating.rated) %></h4>
+	<hr>
+	<br>
+<% end %>

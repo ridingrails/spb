@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+
   def index
     @restaurants = Restaurant.all
   end
@@ -19,5 +20,8 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    prev_rating = Rating.where(:user_id => current_user.id, :restaurant_id => @restaurant.id) || nil
+    @prev_rating = prev_rating[0]
+    @current_user = current_user
   end
 end

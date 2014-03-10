@@ -1,0 +1,8 @@
+<h3>Restaurants</h3>
+
+<% @restaurants.each do |restaurant| %>
+	<h4><%= restaurant.name %></h4>
+	<h4>Number of ratings: <%= restaurant.review_count %></h4>
+	<h4><%= link_to "More on this restaurant", restaurant_path(restaurant) %></h4>
+	<hr>
+<% end %>

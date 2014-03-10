@@ -1,0 +1,9 @@
+<h3>Users</h3>
+
+<% @users.each do |user| %>
+	<h4>Name: <%= user.name %></h4>
+	<h4>Email: <%= user.email %></h4>
+	<h4>Number of reviews: <%= user.num_rated %></h4>
+	<h4><%= link_to "More on this user", user_path(user) %></h4>
+	<hr>
+<% end %>
